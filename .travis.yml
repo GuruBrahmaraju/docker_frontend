@@ -4,5 +4,15 @@ services:
 language: generic
 before_install:
   - docker build -t gurubrahmaraju/docker_frontend -f Dockerfile.dev .
+
 script:
   - docker run -e CI=true gurubrahmaraju/docker_frontend npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-south-1"
+  app: "Docker-React"
+  env: "Dockerreact-env"
+  bucket_name: "elasticbeanstalk-ap-south-1-423542393171"
+  bucket_path: "Docker-React"
+  
